@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Load = new System.Windows.Forms.Button();
+            this.LoadButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.loadedFile = new System.Windows.Forms.Label();
             this.Start = new System.Windows.Forms.Button();
@@ -42,28 +42,28 @@
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Load
+            // LoadButton
             // 
-            this.Load.Location = new System.Drawing.Point(22, 530);
-            this.Load.Name = "Load";
-            this.Load.Size = new System.Drawing.Size(110, 28);
-            this.Load.TabIndex = 0;
-            this.Load.Text = "Load";
-            this.Load.UseVisualStyleBackColor = true;
-            this.Load.Click += new System.EventHandler(this.Load_Click);
+            this.LoadButton.Location = new System.Drawing.Point(22, 488);
+            this.LoadButton.Name = "LoadButton";
+            this.LoadButton.Size = new System.Drawing.Size(110, 28);
+            this.LoadButton.TabIndex = 0;
+            this.LoadButton.Text = "Load";
+            this.LoadButton.UseVisualStyleBackColor = true;
+            this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
             // 
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(374, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(701, 560);
+            this.richTextBox1.Size = new System.Drawing.Size(104, 550);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
             // loadedFile
             // 
             this.loadedFile.AutoSize = true;
-            this.loadedFile.Location = new System.Drawing.Point(46, 500);
+            this.loadedFile.Location = new System.Drawing.Point(46, 458);
             this.loadedFile.Name = "loadedFile";
             this.loadedFile.Size = new System.Drawing.Size(69, 16);
             this.loadedFile.TabIndex = 2;
@@ -71,7 +71,7 @@
             // 
             // Start
             // 
-            this.Start.Location = new System.Drawing.Point(230, 530);
+            this.Start.Location = new System.Drawing.Point(230, 488);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(110, 28);
             this.Start.TabIndex = 3;
@@ -82,7 +82,7 @@
             // TotalBrenches
             // 
             this.TotalBrenches.AutoSize = true;
-            this.TotalBrenches.Location = new System.Drawing.Point(12, 374);
+            this.TotalBrenches.Location = new System.Drawing.Point(12, 122);
             this.TotalBrenches.Name = "TotalBrenches";
             this.TotalBrenches.Size = new System.Drawing.Size(95, 16);
             this.TotalBrenches.TabIndex = 4;
@@ -91,7 +91,7 @@
             // TakenBrenches
             // 
             this.TakenBrenches.AutoSize = true;
-            this.TakenBrenches.Location = new System.Drawing.Point(12, 318);
+            this.TakenBrenches.Location = new System.Drawing.Point(12, 66);
             this.TakenBrenches.Name = "TakenBrenches";
             this.TakenBrenches.Size = new System.Drawing.Size(103, 16);
             this.TakenBrenches.TabIndex = 5;
@@ -101,7 +101,7 @@
             // TakenPredictedBrenches
             // 
             this.TakenPredictedBrenches.AutoSize = true;
-            this.TakenPredictedBrenches.Location = new System.Drawing.Point(179, 318);
+            this.TakenPredictedBrenches.Location = new System.Drawing.Point(179, 66);
             this.TakenPredictedBrenches.Name = "TakenPredictedBrenches";
             this.TakenPredictedBrenches.Size = new System.Drawing.Size(161, 16);
             this.TakenPredictedBrenches.TabIndex = 6;
@@ -110,7 +110,7 @@
             // NotTakenBrenches
             // 
             this.NotTakenBrenches.AutoSize = true;
-            this.NotTakenBrenches.Location = new System.Drawing.Point(8, 267);
+            this.NotTakenBrenches.Location = new System.Drawing.Point(8, 15);
             this.NotTakenBrenches.Name = "NotTakenBrenches";
             this.NotTakenBrenches.Size = new System.Drawing.Size(124, 16);
             this.NotTakenBrenches.TabIndex = 7;
@@ -119,7 +119,7 @@
             // NotTakenPredictedBrenches
             // 
             this.NotTakenPredictedBrenches.AutoSize = true;
-            this.NotTakenPredictedBrenches.Location = new System.Drawing.Point(158, 267);
+            this.NotTakenPredictedBrenches.Location = new System.Drawing.Point(158, 15);
             this.NotTakenPredictedBrenches.Name = "NotTakenPredictedBrenches";
             this.NotTakenPredictedBrenches.Size = new System.Drawing.Size(182, 16);
             this.NotTakenPredictedBrenches.TabIndex = 8;
@@ -127,14 +127,14 @@
             // 
             // NumberOfPerceptrons
             // 
-            this.NumberOfPerceptrons.Location = new System.Drawing.Point(240, 494);
+            this.NumberOfPerceptrons.Location = new System.Drawing.Point(240, 452);
             this.NumberOfPerceptrons.Name = "NumberOfPerceptrons";
             this.NumberOfPerceptrons.Size = new System.Drawing.Size(100, 22);
             this.NumberOfPerceptrons.TabIndex = 9;
             // 
             // NumberOfBits
             // 
-            this.NumberOfBits.Location = new System.Drawing.Point(240, 466);
+            this.NumberOfBits.Location = new System.Drawing.Point(240, 424);
             this.NumberOfBits.Name = "NumberOfBits";
             this.NumberOfBits.Size = new System.Drawing.Size(100, 22);
             this.NumberOfBits.TabIndex = 10;
@@ -142,7 +142,7 @@
             // ErrorLabel
             // 
             this.ErrorLabel.AutoSize = true;
-            this.ErrorLabel.Location = new System.Drawing.Point(272, 433);
+            this.ErrorLabel.Location = new System.Drawing.Point(272, 391);
             this.ErrorLabel.Name = "ErrorLabel";
             this.ErrorLabel.Size = new System.Drawing.Size(0, 16);
             this.ErrorLabel.TabIndex = 11;
@@ -163,9 +163,10 @@
             this.Controls.Add(this.Start);
             this.Controls.Add(this.loadedFile);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.Load);
+            this.Controls.Add(this.LoadButton);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,7 +174,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Load;
+        private System.Windows.Forms.Button LoadButton;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label loadedFile;
         private System.Windows.Forms.Button Start;
