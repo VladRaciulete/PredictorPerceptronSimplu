@@ -14,7 +14,6 @@ namespace PredictorPerceptronSimplu
 {
     public partial class Form1 : Form
     {
-
         int windowWidth;
         int windowHeight;
 
@@ -117,7 +116,10 @@ namespace PredictorPerceptronSimplu
 
                 string text = richTextBox1.Text;
                 string[] lines = text.Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
-                int PC, index, suma, contor;
+                int PC, index, suma;
+                bool predictedtrue, readtrue;
+                int GoodPrediction = 0, BadPrediction = 0;
+
 
                 ErrorLabel.Text = text;
 
@@ -126,14 +128,15 @@ namespace PredictorPerceptronSimplu
                     TotalBrenches1 += 1;
                     string[] words = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    contor = 0;
                     foreach (string word in words)
                     {
 
                         if (word[0] == 'B' || word[0] == 'N')
                         {
+                            predictedtrue = false;
+                            readtrue = false;
 
-                            PC = int.Parse(words[contor + 1]);
+                            PC = int.Parse(words[1]);
 
                             index = PC % InputNumberOfPerceptrons;
                             suma = 0;
@@ -153,18 +156,21 @@ namespace PredictorPerceptronSimplu
                             {
                                 //prezic ca saltul se face
                                 TakenPredictedBrenches1 += 1;
+                                predictedtrue = true;
                             }
                             else if (suma < 0)
                             {
                                 //prezic ca saltul NU se face
                                 NotTakenPredictedBrenches1 += 1;
+                                predictedtrue = false;
                             }
 
 
                             // Verific daca saltul s a facut
-                            if (word[0] == 'B') // Saltul se face
+                            if (word[0] == 'B') // Saltul s-a facut
                             {
                                 TakenBrenches1 += 1;
+                                readtrue = true;
 
                                 // incrementez seturile perceptronului cu 1 (nu si ponderile saltului curent)
                                 for (int i = 0; i < InputNumberOfBits; i++)
@@ -179,12 +185,12 @@ namespace PredictorPerceptronSimplu
                                     HR[i] = HR[i - 1];
                                 }
                                 HR[0] = 1;
-
                             }
 
-                            else if (word[0] == 'N') // Saltul nu se face
+                            else if (word[0] == 'N') // Saltul nu s-a facut
                             {
                                 NotTakenBrenches1 += 1;
+                                readtrue = false;
 
                                 // decrementez cu 1 ponderile salturilor anterioare (nu si ponderile saltului curent)
                                 for (int i = 0; i < InputNumberOfBits; i++)
@@ -202,11 +208,20 @@ namespace PredictorPerceptronSimplu
 
                             }
 
+                            if (predictedtrue && readtrue)
+                            {
+                                GoodPrediction += 1;
+                            }
+                            else if (!predictedtrue && !readtrue)
+                            {
+                                GoodPrediction += 1;
+                            }
+                            else
+                            {
+                                BadPrediction += 1;
+                            }
                         }
-
-                        contor += 1;
                     }
-
                 }
 
                 TotalBrenches.Text = "TotalBrenches = " + TotalBrenches1.ToString();
@@ -223,6 +238,7 @@ namespace PredictorPerceptronSimplu
                 series2.Points.Add(new DataPoint(2, NotTakenPredictedBrenches1) { AxisLabel = "NotTakenPredictedBrenches" });
                 chart2.Series.Add(series);
 
+                /*
                 if (TakenBrenches1 > TakenPredictedBrenches1)
                 {
                     Accuracy.Text = "Accuracy = " + (double)TakenPredictedBrenches1 / TakenBrenches1;
@@ -232,6 +248,10 @@ namespace PredictorPerceptronSimplu
                 {
                     Accuracy.Text = "Accuracy = " + (double)TakenBrenches1 / TakenPredictedBrenches1;
                 }
+                */
+
+                Accuracy.Text = "Accuracy = " + (double)GoodPrediction / (GoodPrediction + BadPrediction);
+
             }
 
             else {
