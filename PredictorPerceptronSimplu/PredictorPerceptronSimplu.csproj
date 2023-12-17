@@ -67,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -77,9 +78,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Trace\FBUBBLE.TRA" />
+    <None Include="Trace\FMATRIX.TRA" />
+    <None Include="Trace\FPERM.TRA" />
+    <None Include="Trace\FPUZZLE.TRA" />
+    <None Include="Trace\FQUEENS.TRA" />
+    <None Include="Trace\FSORT.TRA" />
+    <None Include="Trace\FTOWER.TRA" />
+    <None Include="Trace\FTREE.TRA" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OrarAn4Semestrul1.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
