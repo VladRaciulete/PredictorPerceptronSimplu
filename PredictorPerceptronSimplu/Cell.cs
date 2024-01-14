@@ -17,5 +17,4 @@ namespace PredictorPerceptronSimplu
             NotTaken = notTaken;
         }
     }
-
 }
