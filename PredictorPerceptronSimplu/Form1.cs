@@ -19,7 +19,6 @@ namespace PredictorPerceptronSimplu
     public partial class Form1 : Form
     {
         int TotalBrenches = 0, TakenBrenches = 0, NotTakenBrenches = 0, TakenPredictedBrenches = 0, NotTakenPredictedBrenches = 0;
-
         Dictionary<string, string> TraceFiles = new Dictionary<string, string>();
 
         public Form1()
@@ -126,6 +125,9 @@ namespace PredictorPerceptronSimplu
             NumberOfBits.Value = 6;
             NumberOfPerceptrons.Value = 10;
 
+            NumberOfBits.Maximum = 200;
+            NumberOfPerceptrons.Maximum = 400;
+
             Traces.SelectionMode = SelectionMode.MultiSimple;
             LoadTraceFiles();
         }
@@ -173,7 +175,6 @@ namespace PredictorPerceptronSimplu
 
                         try
                         {
-                            //File.Copy(selectedFilePath, destinationPath, true);
                             File.Copy(selectedFilePath, destinationPath);
                             LoadTraceFiles();
                         }
@@ -190,7 +191,6 @@ namespace PredictorPerceptronSimplu
         {
             string traceFileContent;
             richTextBox1.Text = "";
-            int counter = 0;
 
             if (Traces.SelectedItems.Count > 0)
             {
@@ -202,16 +202,13 @@ namespace PredictorPerceptronSimplu
 
                         if (TraceFiles.TryGetValue(selectedTraceName, out string selectedTraceFile))
                         {
-                            //MessageBox.Show($"Selected Trace File: {selectedTraceFile}");
-
                             traceFileContent = File.ReadAllText(selectedTraceFile);
 
-                            richTextBox1.AppendText("-----------------------------------------------------------------------------------------------\n");
+                            richTextBox1.AppendText("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
                             richTextBox1.SelectionColor = Color.Red;
                             richTextBox1.AppendText("    " + selectedTraceName + "\n");
                             richTextBox1.AppendText(RunPrediction(traceFileContent));
                         }
-                        counter += 1;
                     }
                 }
             }
@@ -235,8 +232,7 @@ namespace PredictorPerceptronSimplu
 
             int[] HR = new int[InputNumberOfBits];
             Cell[,] P = new Cell[InputNumberOfPerceptrons, InputNumberOfBits];
-            Cell[] Perceptron = new Cell[InputNumberOfBits];
-
+            
             for (int i = 0; i < InputNumberOfBits; i++)
             {
                 HR[i] = -1;
@@ -254,7 +250,10 @@ namespace PredictorPerceptronSimplu
             string[] lines = text.Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
             int PC, index, suma;
             bool predictedtrue, readtrue;
-            int GoodPrediction = 0, BadPrediction = 0;
+            int GoodPrediction, BadPrediction;
+
+            GoodPrediction = 0;
+            BadPrediction = 0;
 
             foreach (string line in lines)
             {
@@ -304,14 +303,19 @@ namespace PredictorPerceptronSimplu
                             readtrue = true;
 
                             // incrementez seturile perceptronului cu 1 (nu si ponderile saltului curent
-                            for (int i = 0; i < InputNumberOfBits; i++)
+                            for (int ind = 0; ind < InputNumberOfPerceptrons; ind++)
                             {
-                                P[index, i].NotTaken += 1;
-                                P[index, i].Taken += 1;
+                                for (int i = 0; i < InputNumberOfBits; i++)
+                                {
+                                    if (ind != index) {
+                                        P[ind, i].NotTaken += 1;
+                                        P[ind, i].Taken += 1;
+                                    }
+                                }
                             }
 
                             // shiftez h cu o pozitie la dreapta si adaug 1 pe pozitia 0
-                            for (int i = 1; i < InputNumberOfBits; i++)
+                            for (int i = InputNumberOfBits - 1; i >= 1; i--)
                             {
                                 HR[i] = HR[i - 1];
                             }
@@ -324,16 +328,22 @@ namespace PredictorPerceptronSimplu
                             readtrue = false;
 
                             // decrementez cu 1 ponderile salturilor anterioare (nu si ponderile saltului curent)
-                            for (int i = 0; i < InputNumberOfBits; i++)
+                            for (int ind = 0; ind < InputNumberOfPerceptrons; ind++)
                             {
-                                P[index, i].NotTaken -= 1;
-                                P[index, i].Taken -= 1;
+                                for (int i = 0; i < InputNumberOfBits; i++)
+                                {
+                                    if (ind != index)
+                                    {
+                                        P[ind, i].NotTaken -= 1;
+                                        P[ind, i].Taken -= 1;
+                                    }
+                                }
                             }
 
                             // shiftez toate elem cu o pozitie si adaug -1 pe pozitia 0
-                            for (int i = 1; i < InputNumberOfBits; i++)
+                            for (int i = InputNumberOfBits - 1; i >= 1; i--)
                             {
-                                HR[i] = HR[i-1];
+                                HR[i] = HR[i - 1];
                             }
                             HR[0] = -1;
 
@@ -355,6 +365,9 @@ namespace PredictorPerceptronSimplu
                 }
             }
 
+            output += "    Bits = " + InputNumberOfBits + "\n";
+            output += "    Perceptrons = " + InputNumberOfPerceptrons + "\n";
+            output += "\n";
             output += "    Total Brenches  =  " + TotalBrenches.ToString() + "\n";
             output += "    Taken Brenches  =  " + TakenBrenches.ToString() + "  =  " + (((double)TakenBrenches / TotalBrenches)*100).ToString() + "%\n";
             output += "    Not Taken Brenches  =  " + NotTakenBrenches.ToString() + "  =  " + (((double)NotTakenBrenches / TotalBrenches) * 100).ToString() + "%\n";
@@ -365,7 +378,6 @@ namespace PredictorPerceptronSimplu
             output += "    Wrong Predictions  =  " + BadPrediction + "\n";
             output += "\n";
             output += "    Accuracy  =  " + (((double)GoodPrediction / (GoodPrediction + BadPrediction))*100).ToString() + "%\n";
-            output += "\n";
             output += "\n";
 
             return output;
